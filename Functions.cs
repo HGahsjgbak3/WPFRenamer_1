@@ -21,17 +21,13 @@ namespace WPFRenamer_1 {
             MessageBox.Show("You clicked me at " + e.GetPosition(this).ToString());
 
         }
-        private static DirectoryInfo currDir;
+        private DirectoryInfo currDir;
         private bool check = true;
         private bool OK;
         private void ProcessDirectory(DirectoryInfo newDir) {
-
-            
                 foreach(DirectoryInfo d in newDir.GetDirectories()) {
                     Thread.Sleep(1);
-                    // FILE //
                    while(check) {
-
                     Dispatcher.Invoke(() =>
                         resultBox.AppendText(newDir.FullName + "\n"));
                         foreach(FileInfo f in newDir.GetFiles()) {
@@ -42,7 +38,6 @@ namespace WPFRenamer_1 {
                         if(Dispatcher.Invoke(() => TemplateBox.Text == "")) {
                                 continue;
                             }
-
                             else if(f.Name.Contains(Dispatcher.Invoke(() => TemplateBox.Text))) {
                                 string sf = f.FullName.Remove(f.FullName.LastIndexOf(Dispatcher.Invoke(() => TemplateBox.Text)),
                                                             Dispatcher.Invoke(() => TemplateBox.Text.Length));
@@ -64,11 +59,9 @@ namespace WPFRenamer_1 {
                         Thread.Sleep(1);
                     Dispatcher.Invoke(() =>
                         resultBox.AppendText("------Sub file: " + f.Name + "\n"));
-
                         if(Dispatcher.Invoke(() => TemplateBox.Text == "")) {
                             continue;
                         }
-
                         else if(f.Name.Contains(Dispatcher.Invoke(() => TemplateBox.Text))) {
                             string sf = f.FullName.Remove(f.FullName.LastIndexOf(Dispatcher.Invoke(() => TemplateBox.Text)),
                                                             Dispatcher.Invoke(() => TemplateBox.Text.Length));
@@ -89,13 +82,9 @@ namespace WPFRenamer_1 {
                             }
                             }
                         }
-
                     Dispatcher.Invoke(() =>
                         resultBox.ScrollToEnd());
                     }
-                // END OF FILE //
-                // DIR //
-
                 ProcessDirectory(d);
                     if(Dispatcher.Invoke(() => TemplateBox.Text == ""))
                         continue;
@@ -110,7 +99,6 @@ namespace WPFRenamer_1 {
                         else
                             Directory.Move(d.FullName, s);
                     }
-
                 Dispatcher.Invoke(() =>
                     resultBox.ScrollToEnd());
                 }
